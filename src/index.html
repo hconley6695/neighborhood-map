@@ -5,11 +5,13 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script type="text/javascript" src="js/map.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
-	<script type='text/javascript' src='knockout-3.4.2.js'></script>
+	<script type='text/javascript' src='../bower_components/knockout/dist/knockout.js'>ko.applyBindings(places);
+</script>
+
 </head>
 <body>
 	<div id="map"></div>
-
+	<span data-bind="text: name"></span>
 
 <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeLta6fcVzJEaBgfuO4PZvm6Tmm9beLg&v=3&callback=initMap">
 	
