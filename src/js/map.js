@@ -8,25 +8,57 @@ var markers = [];
 var places = [
 	{
 		name: 'Piedmont Park',
-		position: {lat: 33.7901,lng: -84.3696 }
+		position: {lat: 33.7901,lng: -84.3696 },
+		type: 'parks'
 	},
 
 	{
 		name: 'Georgia Aquarium',
-		position: {lat: 33.7634,lng: -84.3951}
+		position: {lat: 33.7634,lng: -84.3951},
+		type: 'attractions'
 	},
 	{
 		name: 'Ponce City Market',
-		position: {lat: 33.7719,lng: -84.3665}
+		position: {lat: 33.7719,lng: -84.3665},
+		type: 'shopping'
 	},
 	{
 		name: 'Zoo Atlanta',
-		position: {lat: 33.7341,lng: -84.3723}
+		position: {lat: 33.7341,lng: -84.3723},
+		type: 'attractions'
 	},
 	{
 		name: 'Oakland Cemetary',
-		position: {lat: 33.7486,lng: -84.3730}
+		position: {lat: 33.7486,lng: -84.3730},
+		type: 'attractions'
 	},
+	{
+		name: 'Centennial Olympic Park',
+		position: {lat: 33.7603,lng: -84.3935 },
+		type: 'parks'
+	},
+
+	{
+		name: 'Lenox Square Mall',
+		position: {lat: 33.8463,lng: -84.3621},
+		type: 'shopping'
+	},
+	{
+		name: 'The Optimist',
+		position: {lat: 33.779871,lng: -84.410825},
+		type: 'restaurants'
+	},
+	{
+		name: 'Aria',
+		position: {lat: 33.838708,lng: -84.371926},
+		type: 'restaurants'
+	},
+	{
+		name: 'Local Three Kitchen & Bar',
+		position: {lat: 33.844844,lng: -84.427154},
+		type: 'restaurants'
+	},
+
 
 ]
 
@@ -44,11 +76,14 @@ function initMap() {
 		var position = places[i].position;
 		// get the name of the array of locations from viewmodel.js
 		var name = places[i].name;
+
+		var type = places[i].type;
 		// creating a marker for each location
-		var marker = new google.maps.Marker({
+			// map: map,		
+			var marker = new google.maps.Marker({
 			position: position,
-			map: map,
 			title: name,
+			type: type,
 			animation: google.maps.Animation.DROP,
 			icon: './images/rsz_1marker-image.png',
 			id: i
@@ -77,6 +112,69 @@ function initMap() {
 		}
 	}
 
+	document.getElementById('no-filter').addEventListener('click', showAll);
+	document.getElementById('attractions-filter').addEventListener('click', showAttractions);
+	document.getElementById('parks-filter').addEventListener('click', showParks);
+	document.getElementById('restaurants-filter').addEventListener('click', showRestaurants);
+	document.getElementById('shopping-filter').addEventListener('click', showShopping);
+	
+	function showAll() {
+
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+			markers[i].setMap(map);
+		}
+	}
+
+	function showAttractions() {
+		console.log(markers);
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+			if (markers[i].type == 'attractions') {
+
+				markers[i].setMap(map);
+			} else {
+				document.getElementById('no-possibilities').innerHTML = '<span> There are no results.</span>';
+			}
+		}
+	}
+
+	function showParks() {
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+			if (markers[i].type == 'parks') {
+
+				markers[i].setMap(map);
+			} else {
+				document.getElementById('no-possibilities').innerHTML = '<span> There are no results.</span>';
+			}
+		}
+	}
+
+	function showRestaurants() {
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+			if (markers[i].type == 'restaurants') {
+
+				markers[i].setMap(map);
+			} else {
+				document.getElementById('no-possibilities').innerHTML = '<span> There are no results.</span>';
+			}
+		}
+	}
+
+	function showShopping() {
+
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+			if (markers[i].type == 'shopping') {
+		
+				markers[i].setMap(map);
+			} else {
+				document.getElementById('no-possibilities').innerHTML = '<span> There are no results.</span>';
+			}
+		}
+	}
 	// var piedmont = {
 	// 	position: {lat: 33.7901,lng: -84.3696 },
 	// 	name: 'Piedmont Park'

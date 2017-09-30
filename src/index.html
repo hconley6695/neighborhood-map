@@ -11,7 +11,20 @@
 </head>
 <body>
 	<div id="map"></div>
-	<span data-bind="text: name"></span>
+	<div id="container">
+		<h2>Search by: </h2>
+		<input type="button" id="attractions-filter" value="Attractions">
+		<input type="button" id="parks-filter" value="Parks">
+		<input type="button" id="restaurants-filter" value="Restaurants">
+		<input type="button" id="shopping-filter" value="Shopping">
+		<input type="button" id="no-filter" value="Show All">
+	</div>
+	<div id="no-possibilities"></div>
+	<div>
+		<ul>
+			<li></li>
+		</ul>
+	</div>
 
 <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeLta6fcVzJEaBgfuO4PZvm6Tmm9beLg&v=3&callback=initMap">
 	
