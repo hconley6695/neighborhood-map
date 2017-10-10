@@ -123,6 +123,45 @@ function viewModel() {
 
 	this.initMap();
 
+	// this.typeOfVenue = ko.computed(function(place) {
+	// 	for (var i = 0; i < places.length; i++) {
+	// 		this.type = places[i].type;
+	// 		this.setMap(null);
+
+	// 		if (this.type == "attractions") {
+	// 			this.setMap(map);
+	// 		}
+
+	// 		if (this.type == "parks") {
+	// 			this.setMap(map);
+	// 		}
+
+	// 		if (this.type == "restaurants") {
+	// 			this.setMap(map);
+	// 		}
+
+	// 		if (this.type == "shopping") {
+	// 			this.setMap(map);
+	// 		}
+	// 	}
+
+	// });
+
+	this.filterMarkers = ko.computed(function() {
+		var filterList = [];
+		for (var i = 0; i < places.length; i++) {
+			var locationOfMarker = this.places[i];
+
+			if(locationOfMarker.title.toLowerCase().includes(this.search().toLowerCase())) {
+				filterList.push(filterList);
+				this.places[i].setVisible(true);
+			} else {
+				this.places[i].setVisible(false);
+			}
+		}
+		return filterList;
+	}, this);
+
 }
 
 

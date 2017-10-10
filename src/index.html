@@ -8,16 +8,17 @@
 	<div id="map"></div>
 	<div id="container">
 		<h2>Search by: </h2>
-		<input type="button" id="attractions-filter" value="Attractions">
+		<input type="" name="" data-bind="textInput: search" placeholder="What are you looking for?">
+		<!-- input type="button" id="attractions-filter" value="Attractions">
 		<input type="button" id="parks-filter" value="Parks">
 		<input type="button" id="restaurants-filter" value="Restaurants">
 		<input type="button" id="shopping-filter" value="Shopping">
-		<input type="button" id="no-filter" value="Show All">
+		<input type="button" id="no-filter" value="Show All"> -->
 	</div>
 	<div id="no-possibilities"></div>
 	<div>
-		<ul>
-			<li></li>
+		<ul data-bind="foreach: filterMarkers">
+			<li data-bind="text: title"></li>
 		</ul>
 	</div>
 	<!-- <div>The name is <span data-bind="text: name"></span></div> -->
