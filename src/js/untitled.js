@@ -67,24 +67,12 @@ function viewModel() {
 	this.markers = [];
 
 	this.contentInfoWindow = function(marker, infowindow) {
-		console.log('marker', marker);
-		console.log('info', infowindow);
+
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
+			infowindow.setContent('<span>'+ this.marker.title +'</span>');
 
-			console.log(this.marker.title);
-
-			var contentString = '<span>'+ this.marker.title +'</span>';
-
-			infowindow = new google.maps.InfoWindow({
-				content: contentString
-			});
-			// infowindow.setContent('<span>'+ this.marker.title +'</span>');
-
-			this.marker.addListener('click', function() {
-				infowindow.open(map, marker);
-			});
-			// infowindow.open(map, marker);
+			infowindow.open(map, this.marker);
 
 			infowindow.addListener('closeclick', function() {
 				infowindow.marker = null;
@@ -93,11 +81,10 @@ function viewModel() {
 		}
 	};
 
-	this.populateMarker = function(marker, infowindow) {
+	// this.setMarkersPretty = function() {
 
-        self.contentInfoWindow(this.marker, self.largeInfoWindow);
-    };
-
+	// 	self.contentInfoWindow(this, self.largeInfowindow);
+	// }
 
 
 	this.initMap = function() {
@@ -107,7 +94,7 @@ function viewModel() {
 		});
 
 
-		this.largeInfoWindow = new google.maps.InfoWindow();
+		this.largeInfowindow = new google.maps.InfoWindow();
 
 	//Places markers on the map within the initMap function
     //Puts the infoWindows on each individual marker
@@ -129,21 +116,20 @@ function viewModel() {
 				id: i
 			});
 
-			// console.log(this.marker);
-
-			
-
-			// this.largeInfowindow = new google.maps.InfoWindow();
-
-			
 			this.marker.setMap(map);
-			
-
 			// putting all of the markers into the new markers array
 			this.markers.push(this.marker);
-			this.marker.addListener('click', self.populateMarker(this.marker, this.largeInfoWindow));
-		}		
-	};
+			// when you click each marker, it will show an info window
+			// this.marker.addListener('click', (function(marker) {
+			this.marker.addListener('click', function() {
+				// return function() {
+				self.contentInfoWindow(this, self.largeInfowindow);
+					// self.contentInfoWindow(this, self.setMarkersPretty);
+
+			});
+			// })(this.marker));
+		}			
+	}
 
 	this.initMap();
 
@@ -171,23 +157,20 @@ function viewModel() {
 
 	// });
 
+	this.filterMarkers = ko.computed(function() {
+		var filterList = [];
+		for (var i = 0; i < this.markers.length; i++) {
+			var locationOfMarker = this.markers[i];
 
-	// PLACES A SEARCH BAR FOR THE PLACES
-
-	// this.filterMarkers = ko.computed(function() {
-	// 	var filterList = [];
-	// 	for (var i = 0; i < this.markers.length; i++) {
-	// 		var locationOfMarker = this.markers[i];
-
-	// 		if(locationOfMarker.title.toLowerCase().includes(this.search().toLowerCase())) {
-	// 			filterList.push(filterList);
-	// 			this.markers[i].setVisible(true);
-	// 		} else {
-	// 			this.markers[i].setVisible(false);
-	// 		}
-	// 	}
-	// 	return filterList;
-	// }, this);
+			if(locationOfMarker.title.toLowerCase().includes(this.search().toLowerCase())) {
+				filterList.push(filterList);
+				this.markers[i].setVisible(true);
+			} else {
+				this.markers[i].setVisible(false);
+			}
+		}
+		return filterList;
+	}, this);
 
 }
 
