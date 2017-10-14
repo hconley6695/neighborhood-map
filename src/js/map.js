@@ -67,12 +67,12 @@ function viewModel() {
 	this.markers = [];
 
 	this.contentInfoWindow = function(marker, infowindow) {
-		console.log('marker', marker);
-		console.log('info', infowindow);
+		// console.log('marker', marker);
+		// console.log('info', infowindow);
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
 
-			console.log(this.marker.title);
+			// console.log(this.marker.title);
 
 			var contentString = '<span>'+ this.marker.title +'</span>';
 
@@ -141,6 +141,7 @@ function viewModel() {
 
 			// putting all of the markers into the new markers array
 			this.markers.push(this.marker);
+
 			this.marker.addListener('click', self.populateMarker(this.marker, this.largeInfoWindow));
 		}		
 	};
@@ -172,22 +173,31 @@ function viewModel() {
 	// });
 
 
-	// PLACES A SEARCH BAR FOR THE PLACES
+	// PLACES A SEARCH BAR FOR THE PLACES & FILTERS BOTH THE MARKERS AND THE LIST OF PLACES WHEN SEARCHING
 
-	// this.filterMarkers = ko.computed(function() {
-	// 	var filterList = [];
-	// 	for (var i = 0; i < this.markers.length; i++) {
-	// 		var locationOfMarker = this.markers[i];
+	this.filterMarkers = ko.computed(function() {
+		var filterList = [];	
 
-	// 		if(locationOfMarker.title.toLowerCase().includes(this.search().toLowerCase())) {
-	// 			filterList.push(filterList);
-	// 			this.markers[i].setVisible(true);
-	// 		} else {
-	// 			this.markers[i].setVisible(false);
-	// 		}
-	// 	}
-	// 	return filterList;
-	// }, this);
+		for (var i = 0; i < this.markers.length; i++) {
+
+			var locationOfMarker = this.markers[i];
+			
+			var listTitle = locationOfMarker.title;
+
+
+			
+			console.log(listTitle);
+
+			if(listTitle.toLowerCase().includes(this.search().toLowerCase())) {
+				filterList.push(locationOfMarker);
+				locationOfMarker.setVisible(true);
+			} else {
+				locationOfMarker.setVisible(false);
+			}
+		}
+		// console.log(filterList);
+		return filterList;
+	}, this);
 
 }
 
