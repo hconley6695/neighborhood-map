@@ -5,6 +5,18 @@ html, body {
 	padding: 0;
 }
 
+h1 {
+	width: 30%;
+	color: #c43730;
+	font-size: 24px;
+	overflow: wrap;
+	word-wrap: normal;
+	text-align: center;
+	background-color: #e88a85;
+	margin: 0;
+	padding: 20px 0;
+}
+
 #map {
 	height: 100%;
 	width: 70%;
@@ -15,20 +27,54 @@ html, body {
 
 #container {
 	width: 30%;
+	text-align: center;
+	background: #e88a85;
+	padding-top: 20px;
 }
 
 span {
 	height: 100%;
 	width: 100%;
-	border: 1px solid red;
 }
 
-h2 {
+span.search {
 	color: #c43730;
-	text-align: center;
 }
 
-input[type="button"] {
+div.listcontainer {
+	width: 100%;
+}
+
+ul {
+	padding-left: 0;
+	width: 100%;
+}
+
+ul li {
+	list-style-type: none;
+	background: #e88a85;
+	color: #c43730;
+	width: 100%;
+	border: medium none;
+	font-size: 16px;
+	padding: 8px 20px;
+}
+
+ul a {
+	text-decoration: none;
+}
+
+input {
+	font-size: 20px;
+	opacity: 0.5;
+	color: #c43730;
+	border: none;
+	border-radius: 5px;
+	line-height: 35px;
+	width: 260px;
+}
+
+/*input[type="button"] {
 	background: #e88a85;
 	color: #c43730;
 	width: 100%;
@@ -42,7 +88,7 @@ input[type="button"]:hover {
 	color: #ffffff;
 	cursor: pointer;
 	transition: .5s all;
-}
+}*/
 
 
 
