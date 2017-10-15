@@ -33,7 +33,7 @@ var places = [
 	},
 
 	{
-		name: 'Lenox Square Mall',
+		name: 'Lenox Square',
 		position: {lat: 33.8463,lng: -84.3621},
 		type: 'shopping'
 	},
@@ -55,7 +55,7 @@ var places = [
 ];
 
 // creating global map variable
-var map;
+var map, clientID, clientSecret;
 
 
 function viewModel() {
@@ -72,13 +72,45 @@ function viewModel() {
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
 
-			// console.log(this.marker.title);
-
 			var contentString = '<span>'+ this.marker.title +'</span>';
+			//////////////
+			clientID = 'CHMADCCNK2GSYHFDDIYPKIHG54P535GXBHZ15TLTFGXIJ4ME';
 
-			infowindow = new google.maps.InfoWindow({
-				content: contentString
-			});
+			clientSecret = 'LMODHYT1SSACS4UPE5OSM51ODANGBY0MX5ZGFYIQ51BVIOR0';
+
+			var urlApi = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll=33.7490%2C%20-84.3880&client_id=' + clientID + '&client_secret=' + clientSecret + '&query=' + marker.title;
+
+
+			$.getJSON(urlApi).done(function(marker){
+
+				var resp = marker.response.venues[0];
+				console.log(resp);
+
+				var placeName = resp.name;
+				var placeUrl = resp.url;
+				var placeStreet = resp.location.address;
+				var placeCity = resp.location.city;
+				var placeZip = resp.location.postalCode;
+				var placeState = resp.location.state;
+				var placePhone = resp.contact.formattedPhone;
+				var placeStats = resp.stats.checkinsCount;
+
+				var placeHTML = '<div><h4>' + placeName + '</h4><p>'
+					+ placeStreet + '</p><p>' + placeCity + ', ' + placeState + ' ' + placeZip + '</p><p>' + placePhone + '</p><p><a href="' + placeUrl + '" target="_blank">' 
+					+ placeUrl + '</a></p><p>' + placeStats + ' people have checked in here.';
+
+				// console.log(placeZip);
+
+				infowindow = new google.maps.InfoWindow({
+					content: placeHTML
+				});
+
+			}).fail(function() {
+				$('#no-possibilities').html('<p>There was an API call error.</p>');
+			})
+			////////////////
+
+			
 			// infowindow.setContent('<span>'+ this.marker.title +'</span>');
 
 			this.marker.addListener('click', function() {
@@ -92,13 +124,6 @@ function viewModel() {
 
 		}
 	};
-
-	this.populateMarker = function(marker, infowindow) {
-
-        self.contentInfoWindow(this.marker, self.largeInfoWindow);
-    };
-
-
 
 	this.initMap = function() {
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -128,49 +153,17 @@ function viewModel() {
 				icon: './images/rsz_1marker-image.png',
 				id: i
 			});
-
-			// console.log(this.marker);
-
-			
-
-			// this.largeInfowindow = new google.maps.InfoWindow();
-
 			
 			this.marker.setMap(map);
-			
 
 			// putting all of the markers into the new markers array
 			this.markers.push(this.marker);
 
-			this.marker.addListener('click', self.populateMarker(this.marker, this.largeInfoWindow));
+			this.marker.addListener('click', self.contentInfoWindow(this.marker, this.largeInfoWindow));
 		}		
 	};
 
 	this.initMap();
-
-	// this.typeOfVenue = ko.computed(function(place) {
-	// 	for (var i = 0; i < places.length; i++) {
-	// 		this.type = places[i].type;
-	// 		this.setMap(null);
-
-	// 		if (this.type == "attractions") {
-	// 			this.setMap(map);
-	// 		}
-
-	// 		if (this.type == "parks") {
-	// 			this.setMap(map);
-	// 		}
-
-	// 		if (this.type == "restaurants") {
-	// 			this.setMap(map);
-	// 		}
-
-	// 		if (this.type == "shopping") {
-	// 			this.setMap(map);
-	// 		}
-	// 	}
-
-	// });
 
 
 	// PLACES A SEARCH BAR FOR THE PLACES & FILTERS BOTH THE MARKERS AND THE LIST OF PLACES WHEN SEARCHING
@@ -183,10 +176,6 @@ function viewModel() {
 			var locationOfMarker = this.markers[i];
 			
 			var listTitle = locationOfMarker.title;
-
-
-			
-			console.log(listTitle);
 
 			if(listTitle.toLowerCase().includes(this.search().toLowerCase())) {
 				filterList.push(locationOfMarker);
@@ -202,101 +191,6 @@ function viewModel() {
 }
 
 
-
-// CHANGING CODE HERE
-
-
-
-
-	
-// function showAll() {
-
-// 	for (var i = 0; i < markers.length; i++) {
-// 		markers[i].setMap(null);
-// 		markers[i].setMap(map);
-// 	}
-// }
-
-	// document.getElementById('no-filter').addEventListener('click', showAll);
-	// document.getElementById('attractions-filter').addEventListener('click', showAttractions);
-	// document.getElementById('parks-filter').addEventListener('click', showParks);
-	// document.getElementById('restaurants-filter').addEventListener('click', showRestaurants);
-	// document.getElementById('shopping-filter').addEventListener('click', showShopping);
-// var viewModel = {
-	// query: ko.observable('')
-// }
-	
-// TO CHANGE KO.OBSERVABLE, YOU PLACE A NEW VALUE INTO IT-- EX: VAR NUM = KO.OBSERVABLE(42);
-// KNOCKOUT MAKES YOU RUN A FUNCITON IN ORDER TO CHANGE THE VALUE  -- EX. NUM(43);
-
-// viewModel.markers = function() {
-
-// }
-
-
-// ko.applyBindings(viewModel);
-
-	// function showAttractions() {
-	// 	console.log(markers);
-	// 	for (var i = 0; i < markers.length; i++) {
-	// 		markers[i].setMap(null);
-	// 		if (markers[i].type == 'attractions') {
-
-	// 			markers[i].setMap(map);
-	// 		} else {
-	// 			document.getElementById('no-possibilities').innerHTML = '<span> There are no results.</span>';
-	// 		}
-	// 	}
-	// }
-
-	// function showParks() {
-	// 	for (var i = 0; i < markers.length; i++) {
-	// 		markers[i].setMap(null);
-	// 		if (markers[i].type == 'parks') {
-
-	// 			markers[i].setMap(map);
-	// 		} else {
-	// 			document.getElementById('no-possibilities').innerHTML = '<span> There are no results.</span>';
-	// 		}
-	// 	}
-	// }
-
-	// function showRestaurants() {
-	// 	for (var i = 0; i < markers.length; i++) {
-	// 		markers[i].setMap(null);
-	// 		if (markers[i].type == 'restaurants') {
-
-	// 			markers[i].setMap(map);
-	// 		} else {
-	// 			document.getElementById('no-possibilities').innerHTML = '<span> There are no results.</span>';
-	// 		}
-	// 	}
-	// }
-
-	// function showShopping() {
-
-	// 	for (var i = 0; i < markers.length; i++) {
-	// 		markers[i].setMap(null);
-	// 		if (markers[i].type == 'shopping') {
-		
-	// 			markers[i].setMap(map);
-	// 		} else {
-	// 			document.getElementById('no-possibilities').innerHTML = '<span> There are no results.</span>';
-	// 		}
-	// 	}
-	// }
-
-// }	
-// }
-
-
-// var myViewModel = {
-// 	name: ko.observable('Bob'),
-// 	age: ko.observable(23)
-// };
-
-// ko.applyBindings(myViewModel); 
-// ko.applyBindings(viewmodel);
 function startUpApp() {
 	ko.applyBindings(new viewModel());
 }

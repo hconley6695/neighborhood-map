@@ -3,27 +3,27 @@
 <head>
 	<title>Neighborhood Map Project</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+	<h1>Places of Interest in Atlanta, GA</h1>
 	<div id="map"></div>
 	<div id="container">
-		<h2>Search by: </h2>
-		<input type="" name="" data-bind="textInput: search, valueUpdate: 'afterkeydown'" placeholder="What are you looking for?">
-		<!-- input type="button" id="attractions-filter" value="Attractions">
-		<input type="button" id="parks-filter" value="Parks">
-		<input type="button" id="restaurants-filter" value="Restaurants">
-		<input type="button" id="shopping-filter" value="Shopping">
-		<input type="button" id="no-filter" value="Show All"> -->
-	</div>
-	<div id="no-possibilities"></div>
-	<div>
+		<div>
+			<span class="search">Search:</span>
+			<input type="" name="" data-bind="textInput: search, valueUpdate: 'afterkeydown'">
+		</div>
+	<div class="listcontainer">
 		<ul data-bind="foreach: filterMarkers">
+
 			<a href="#"><li data-bind="text: title, click: $parent.populateMarker"></li></a>
 		</ul>
 	</div>
 
-	<!-- <div>The name is <span data-bind="text: name"></span></div> -->
-<!-- <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeLta6fcVzJEaBgfuO4PZvm6Tmm9beLg&v=3&callback=initMap"> -->
+	</div>
+	<div id="no-possibilities"></div>
+
+
 <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeLta6fcVzJEaBgfuO4PZvm6Tmm9beLg&v=3&callback=startUpApp">
 	
 </script>
