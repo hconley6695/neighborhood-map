@@ -4,22 +4,28 @@
 	<title>Neighborhood Map Project</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://use.fontawesome.com/6b5469fe44.js"></script>
 </head>
 <body>
-	<h1>Places of Interest in Atlanta, GA</h1>
+	
 	<div id="map"></div>
+	<div class="icons">
+		<i class="fa fa-bars" id="hamburger"></i>
+		<i class="fa fa-times" id="close"></i>
+	</div>
 	<div id="container">
+
+		<h1>Places of Interest in Atlanta, GA</h1>
 		<div>
 			<span class="search">Search:</span>
 			<input type="" name="" data-bind="textInput: search, valueUpdate: 'afterkeydown'">
 		</div>
-	<div class="listcontainer">
-		<ul data-bind="foreach: filterMarkers">
+		<div class="listcontainer">
+			<ul data-bind="foreach: filterMarkers">
 
-			<a href="#"><li data-bind="text: title, click: $parent.populateMarker"></li></a>
-		</ul>
-	</div>
-
+				<a href="#"><li data-bind="text: title, click: $parent.populateMarker"></li></a>
+			</ul>
+		</div>
 	</div>
 	<div id="no-possibilities"></div>
 

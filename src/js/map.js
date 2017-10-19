@@ -106,7 +106,7 @@ function viewModel() {
 				});
 
 			}).fail(function() {
-				$('#no-possibilities').html('<p>There was an API call error.</p>');
+				$('#no-possibilities').html('<p>There was an error.</p>');
 			})
 			////////////////
 
@@ -189,6 +189,27 @@ function viewModel() {
 	}, this);
 
 }
+
+function toggleMenu() {
+	$('.fa-bars').on('click', function() {
+		$('#container').addClass('open-menu');
+		$('#hamburger').addClass('no-see-it');
+		$('#close').addClass('see-it');
+		$('#map').addClass('smaller-map');
+	});
+
+	$('.fa-times').on('click', function() {
+		$('#container').removeClass('open-menu');
+		$('#hamburger').removeClass('no-see-it');
+		$('#close').removeClass('see-it');
+		$('#map').removeClass('smaller-map');
+	});
+
+}
+
+toggleMenu();
+
+
 
 
 function startUpApp() {
