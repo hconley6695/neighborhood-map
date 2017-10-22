@@ -168,7 +168,8 @@ function viewModel() {
 			// putting all of the markers into the new markers array
 			this.markers.push(this.marker);
 
-			this.marker.addListener('click', self.contentInfoWindow(this.marker, this.largeInfoWindow));
+			// this.marker.addListener('click', self.contentInfoWindow(this.marker, this.largeInfoWindow));
+			this.marker.addListener('click', self.populateMarkerFromList);
 		}		
 	};
 
