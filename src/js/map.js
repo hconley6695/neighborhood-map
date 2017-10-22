@@ -70,9 +70,11 @@ function viewModel() {
 		// console.log('marker', marker);
 		// console.log('info', infowindow);
 		if (infowindow.marker != marker) {
-			infowindow.marker = marker;
 
-			var contentString = '<span>'+ this.marker.title +'</span>';
+			infowindow.marker = marker;
+			console.log(infowindow);
+
+			// var contentString = '<span>'+ this.marker.title +'</span>';
 			//////////////
 			clientID = 'CHMADCCNK2GSYHFDDIYPKIHG54P535GXBHZ15TLTFGXIJ4ME';
 
@@ -86,37 +88,40 @@ function viewModel() {
 				var resp = marker.response.venues[0];
 				console.log(resp);
 
-				var placeName = resp.name;
-				var placeUrl = resp.url;
-				var placeStreet = resp.location.address;
-				var placeCity = resp.location.city;
-				var placeZip = resp.location.postalCode;
-				var placeState = resp.location.state;
-				var placePhone = resp.contact.formattedPhone;
-				var placeStats = resp.stats.checkinsCount;
+				this.placeName = resp.name;
+				this.placeUrl = resp.url;
+				this.placeStreet = resp.location.address;
+				this.placeCity = resp.location.city;
+				this.placeZip = resp.location.postalCode;
+				this.placeState = resp.location.state;
+				this.placePhone = resp.contact.formattedPhone;
+				this.placeStats = resp.stats.checkinsCount;
 
-				var placeHTML = '<div><h4>' + placeName + '</h4><p>'
-					+ placeStreet + '</p><p>' + placeCity + ', ' + placeState + ' ' + placeZip + '</p><p>' + placePhone + '</p><p><a href="' + placeUrl + '" target="_blank">' 
-					+ placeUrl + '</a></p><p>' + placeStats + ' people have checked in here.';
+				this.placeHTML = '<div><h4>' + this.placeName + '</h4><p>'
+					+ this.placeStreet + '</p><p>' + this.placeCity + ', ' + this.placeState + ' ' + this.placeZip + '</p><p>' + this.placePhone + '</p><p><a href="' + this.placeUrl + '" target="_blank">' 
+					+ this.placeUrl + '</a></p><p>' + this.placeStats + ' people have checked in here.';
 
 				// console.log(placeZip);
 
-				infowindow = new google.maps.InfoWindow({
-					content: placeHTML
-				});
+				// infowindow = new google.maps.InfoWindow({
+				// 	content: self.placeHTML
+				// });
+
+				infowindow.setContent(this.placeHTML);
 
 			}).fail(function() {
 				$('#no-possibilities').html('<p>There was an error.</p>');
 			})
 			////////////////
-
 			
 			// infowindow.setContent('<span>'+ this.marker.title +'</span>');
 
-			this.marker.addListener('click', function() {
-				infowindow.open(map, marker);
-			});
-			// infowindow.open(map, marker);
+			infowindow.open(map, marker);
+
+			// marker.addListener('click', function() {
+			// 	infowindow.open(map, marker);
+			// });
+
 
 			infowindow.addListener('closeclick', function() {
 				infowindow.marker = null;
@@ -124,6 +129,10 @@ function viewModel() {
 
 		}
 	};
+
+	this.populateMarkerFromList = function() {
+		self.contentInfoWindow(this, self.largeInfoWindow);
+	}
 
 	this.initMap = function() {
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -187,6 +196,13 @@ function viewModel() {
 		// console.log(filterList);
 		return filterList;
 	}, this);
+
+	// self.listViewClick = function(gym) {
+	// 	if (gym.name) {
+	// 	  gym.marker.setAnimation(google.maps.Animation.BOUNCE);
+	// 	  infoWindow.open(map, gym.marker);
+	// 	}
+	// }
 
 }
 
