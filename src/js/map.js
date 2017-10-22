@@ -66,16 +66,15 @@ function viewModel() {
 	// create new empty array for all places
 	this.markers = [];
 
+	// SETS THE CONTENT OF EACH PARTICULAR INFOWINDOW WHEN CALLED BY CLICK ON LIST ITEM
+	// OR BY CLICK OF MAP MARKER
+
 	this.contentInfoWindow = function(marker, infowindow) {
-		// console.log('marker', marker);
-		// console.log('info', infowindow);
+
 		if (infowindow.marker != marker) {
 
 			infowindow.marker = marker;
-			console.log(infowindow);
 
-			// var contentString = '<span>'+ this.marker.title +'</span>';
-			//////////////
 			clientID = 'CHMADCCNK2GSYHFDDIYPKIHG54P535GXBHZ15TLTFGXIJ4ME';
 
 			clientSecret = 'LMODHYT1SSACS4UPE5OSM51ODANGBY0MX5ZGFYIQ51BVIOR0';
@@ -101,27 +100,16 @@ function viewModel() {
 					+ this.placeStreet + '</p><p>' + this.placeCity + ', ' + this.placeState + ' ' + this.placeZip + '</p><p>' + this.placePhone + '</p><p><a href="' + this.placeUrl + '" target="_blank">' 
 					+ this.placeUrl + '</a></p><p>' + this.placeStats + ' people have checked in here.';
 
-				// console.log(placeZip);
-
-				// infowindow = new google.maps.InfoWindow({
-				// 	content: self.placeHTML
-				// });
+				// BECAUSE INFOWINDOW WAS ALREADY CREATED, WE HAD TO RESET THE CONTENT OF THE INFOWINDOW,
+				// NOT MAKE A NEW ONE 
 
 				infowindow.setContent(this.placeHTML);
 
 			}).fail(function() {
 				$('#no-possibilities').html('<p>There was an error.</p>');
 			})
-			////////////////
-			
-			// infowindow.setContent('<span>'+ this.marker.title +'</span>');
 
 			infowindow.open(map, marker);
-
-			// marker.addListener('click', function() {
-			// 	infowindow.open(map, marker);
-			// });
-
 
 			infowindow.addListener('closeclick', function() {
 				infowindow.marker = null;
@@ -130,6 +118,7 @@ function viewModel() {
 		}
 	};
 
+	// CALLED UPON ON LIST CLICK OR WITHIN MARKER CLICK FUNCTION
 	this.populateMarkerFromList = function() {
 		self.contentInfoWindow(this, self.largeInfoWindow);
 	}
@@ -168,7 +157,10 @@ function viewModel() {
 			// putting all of the markers into the new markers array
 			this.markers.push(this.marker);
 
-			// this.marker.addListener('click', self.contentInfoWindow(this.marker, this.largeInfoWindow));
+			// HAD TO CREATE FUNCTION OUTSIDE OF INITMAP FUNCTION TO POPULATE INFOWINDOWS SO THAT
+			// THEY COULD BE FILLED BY BOTH CLICKING ON THE LIST OR THE MARKERS
+			// FIXED THE NON-CLOSING INFOWINDOW PROBLEM TOO.
+
 			this.marker.addListener('click', self.populateMarkerFromList);
 		}		
 	};
@@ -194,16 +186,9 @@ function viewModel() {
 				locationOfMarker.setVisible(false);
 			}
 		}
-		// console.log(filterList);
+
 		return filterList;
 	}, this);
-
-	// self.listViewClick = function(gym) {
-	// 	if (gym.name) {
-	// 	  gym.marker.setAnimation(google.maps.Animation.BOUNCE);
-	// 	  infoWindow.open(map, gym.marker);
-	// 	}
-	// }
 
 }
 
