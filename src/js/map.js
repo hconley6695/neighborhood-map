@@ -121,6 +121,10 @@ function viewModel() {
 	// CALLED UPON ON LIST CLICK OR WITHIN MARKER CLICK FUNCTION
 	this.populateMarkerFromList = function() {
 		self.contentInfoWindow(this, self.largeInfoWindow);
+		this.setAnimation(google.maps.Animation.BOUNCE);
+        window.setTimeout((function() {
+            this.setAnimation(null);
+        }).bind(this), 2000);
 	}
 
 	this.initMap = function() {

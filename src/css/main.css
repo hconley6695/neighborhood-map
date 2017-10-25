@@ -20,14 +20,14 @@ h1 {
 
 #map {
 	height: 100%;
-	width: 95%;
+	width: 97%;
 	position: absolute;
 	top: 0;
 	right: 0;
+	width: calc(100% - 40px);
 }
 
 #container {
-	/*width: 30%;*/
 	width: 5%;
 	text-align: center;
 	background: #e88a85;
@@ -37,7 +37,6 @@ h1 {
 
 .fa-bars {
 	text-align: right;
-    /*display: block !important;*/
     color: #c43730;
     background-color: #e88a85;
     width: 3%;
@@ -87,7 +86,8 @@ input {
 	border: none;
 	border-radius: 5px;
 	line-height: 35px;
-	width: 260px;
+	max-width: 260px;
+	width: 90%;
 }
 
 #no-possibilities {
@@ -99,16 +99,15 @@ input {
 	width: 30% !important;
 	z-index: 10;
 	position: absolute;
-	left: 5%;
+	left: 40px;
 	height: 100%;
+	min-width: 300px;
 }
 
 .smaller-map {
-	width: 95% !important;
 	position: absolute;
 	top:0;
 	right: 0;
-
 }
 
 #close {
@@ -127,28 +126,11 @@ input {
 
 div.icons {
 	display: block !important;
-    width: 30% !important;
     z-index: 10;
     position: absolute;
-    /* left: 5%; */
-    /* top: 25px; */
     height: 100%;
 }
-/*input[type="button"] {
-	background: #e88a85;
-	color: #c43730;
-	width: 100%;
-	border: medium none;
-	font-size: 16px;
-	padding: 15px 5px;
-}
 
-input[type="button"]:hover {
-	background: #c43730;
-	color: #ffffff;
-	cursor: pointer;
-	transition: .5s all;
-}*/
 
 
 
