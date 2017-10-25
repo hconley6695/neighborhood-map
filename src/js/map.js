@@ -133,6 +133,8 @@ function viewModel() {
 			zoom: 12
 		});
 
+		this.bounds = new google.maps.LatLngBounds();
+
 
 		this.largeInfoWindow = new google.maps.InfoWindow();
 
@@ -161,12 +163,15 @@ function viewModel() {
 			// putting all of the markers into the new markers array
 			this.markers.push(this.marker);
 
+			this.bounds.extend(this.position);
+
 			// HAD TO CREATE FUNCTION OUTSIDE OF INITMAP FUNCTION TO POPULATE INFOWINDOWS SO THAT
 			// THEY COULD BE FILLED BY BOTH CLICKING ON THE LIST OR THE MARKERS
 			// FIXED THE NON-CLOSING INFOWINDOW PROBLEM TOO.
 
 			this.marker.addListener('click', self.populateMarkerFromList);
-		}		
+		}	
+		map.fitBounds(this.bounds);	
 	};
 
 	this.initMap();
