@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Neighborhood Map Project</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://use.fontawesome.com/6b5469fe44.js"></script>
@@ -10,10 +11,14 @@
 	
 	<div id="map"></div>
 	<div class="icons">
-		<i class="fa fa-bars" id="hamburger"></i>
-		<i class="fa fa-times" id="close"></i>
+		<!-- data-bind="click: openMenu -->
+		<i class="fa fa-bars" id="hamburger" "></i>
+		<!-- data-bind="click: closeMenu" -->
+		<i class="fa fa-times" id="close" ></i>
 	</div>
-	<div id="container">
+	<!-- data-bind="css: { -->
+	<!-- open-menu: openMenu" -->
+	<div id="container" >
 
 		<h1>Places of Interest in Atlanta, GA</h1>
 		<div>
@@ -30,12 +35,13 @@
 	<div id="no-possibilities"></div>
 
 
-<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeLta6fcVzJEaBgfuO4PZvm6Tmm9beLg&v=3&callback=startUpApp">
+
 	
-</script>
+
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/map.js"></script>
+<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeLta6fcVzJEaBgfuO4PZvm6Tmm9beLg&v=3&callback=startUpApp" onerror="mapError()"></script>
 
 </body>
 </html>

@@ -58,7 +58,7 @@ var places = [
 var map, clientID, clientSecret;
 
 
-function viewModel() {
+function ViewModel() {
 	var self = this;
 
 	this.search = ko.observable('');
@@ -106,7 +106,7 @@ function viewModel() {
 				infowindow.setContent(this.placeHTML);
 
 			}).fail(function() {
-				$('#no-possibilities').html('<p>There was an error.</p>');
+				alert('There was an error loading the Foursquare API.  Please refresh your page to try again.');
 			})
 
 			infowindow.open(map, marker);
@@ -141,9 +141,9 @@ function viewModel() {
 	//Places markers on the map within the initMap function
     //Puts the infoWindows on each individual marker
 		for (var i = 0; i < places.length; i++) {
-			// get the positions of the array of locations from viewmodel.js
+			
 			this.position = places[i].position;
-			// get the name of the array of locations from viewmodel.js
+			
 			this.name = places[i].name;
 
 			this.type = places[i].type;
@@ -199,7 +199,19 @@ function viewModel() {
 		return filterList;
 	}, this);
 
+
+	// this.visibleMenu = ko.observable(false);
+
+	// this.openMenu = function() {
+	// 		// this.visibleMenu(!this.visibleMenu());
+
+	// 	this.visibleMenu(!this.visibleMenu());
+	// }
+	// this.closeMenu = function() {
+	// 	this.visibleMenu(false);
+	// }
 }
+
 
 function toggleMenu() {
 	$('.fa-bars').on('click', function() {
@@ -220,9 +232,12 @@ function toggleMenu() {
 
 toggleMenu();
 
+mapError = function mapError() {
+	alert("Something happened!  Your Google Map did not load.  Please refresh the page and try again.")
 
+}
 
 
 function startUpApp() {
-	ko.applyBindings(new viewModel());
+	ko.applyBindings(new ViewModel());
 }
