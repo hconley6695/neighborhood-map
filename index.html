@@ -12,13 +12,13 @@
 	<div id="map"></div>
 	<div class="icons">
 		<!-- data-bind="click: openMenu -->
-		<i class="fa fa-bars" id="hamburger" "></i>
+		<i class="fa fa-bars" id="hamburger" data-bind="click: openMenu"></i>
 		<!-- data-bind="click: closeMenu" -->
-		<i class="fa fa-times" id="close" ></i>
+		<i class="fa fa-times" id="close" data-bind="click: closeMenu"></i>
 	</div>
 	<!-- data-bind="css: { -->
 	<!-- open-menu: openMenu" -->
-	<div id="container" >
+	<div id="container" data-bind="visible: visibleMenu">
 
 		<h1>Places of Interest in Atlanta, GA</h1>
 		<div>

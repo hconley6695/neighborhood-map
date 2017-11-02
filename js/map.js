@@ -199,38 +199,23 @@ function ViewModel() {
 		return filterList;
 	}, this);
 
+	// constructor() {
+	// 		this.visibleMenu = ko.observable(false);
+	// }	
 
-	// this.visibleMenu = ko.observable(false);
+// 
+	this.visibleMenu = ko.observable(false);
 
-	// this.openMenu = function() {
-	// 		// this.visibleMenu(!this.visibleMenu());
+	openMenu = function() {
 
-	// 	this.visibleMenu(!this.visibleMenu());
-	// }
-	// this.closeMenu = function() {
-	// 	this.visibleMenu(false);
-	// }
+		this.visibleMenu(!this.visibleMenu());
+	}
+
+	closeMenu = function() {
+		this.visibleMenu(false);
+	}
 }
 
-
-function toggleMenu() {
-	$('.fa-bars').on('click', function() {
-		$('#container').addClass('open-menu');
-		$('#hamburger').addClass('no-see-it');
-		$('#close').addClass('see-it');
-		$('#map').addClass('smaller-map');
-	});
-
-	$('.fa-times').on('click', function() {
-		$('#container').removeClass('open-menu');
-		$('#hamburger').removeClass('no-see-it');
-		$('#close').removeClass('see-it');
-		$('#map').removeClass('smaller-map');
-	});
-
-}
-
-toggleMenu();
 
 mapError = function mapError() {
 	alert("Something happened!  Your Google Map did not load.  Please refresh the page and try again.")
