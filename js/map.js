@@ -154,7 +154,8 @@ function ViewModel() {
 				title: this.name,
 				type: this.type,
 				animation: google.maps.Animation.DROP,
-				icon: './images/rsz_1marker-image.png',
+				// icon: './images/rsz_1marker-image.png',
+				icon: './images/rsz_blue-marker.png',
 				id: i
 			});
 			
